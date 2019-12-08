@@ -1,18 +1,17 @@
 package main
 
 import (
-	// "bufio"
-	// "fmt"
+	"bufio"
 	"fmt"
+	"os"
 	"strings"
 	"unicode"
 )
 
 func main() {
-	// reader := bufio.NewReader(os.Stdin)
-	// fmt.Print("Enter string to expand: ")
-	// text, _ := reader.ReadString('\n')
-	text := "qwerty2"
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print("Enter string to expand: ")
+	text, _ := reader.ReadString('\n')
 	fmt.Println("Expanded : " + expand(text))
 }
 
