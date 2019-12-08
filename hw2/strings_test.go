@@ -35,3 +35,10 @@ func Test7(t *testing.T) {
 func Test8(t *testing.T) {
 	assert.Equal(t, "qwertyyyyyyyyyyyyyyyyyyyyyy", expand("qwerty22"))
 }
+
+func Test9(t *testing.T) {
+	assert.Equal(t, "qwerty444", expand("qwerty"+"\\"+"43"))
+}
+func Test10(t *testing.T) {
+	assert.Equal(t, "qwerty4", expand("qwerty"+"\\"+"4"))
+}
