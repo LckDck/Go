@@ -37,8 +37,32 @@ func Test8(t *testing.T) {
 }
 
 func Test9(t *testing.T) {
-	assert.Equal(t, "qwerty444", expand("qwerty"+"\\"+"43"))
+	assert.Equal(t, "qwerty444", expand("qwerty\\43"))
 }
 func Test10(t *testing.T) {
-	assert.Equal(t, "qwerty4", expand("qwerty"+"\\"+"4"))
+	assert.Equal(t, "qwerty4", expand("qwerty\\4"))
+}
+
+func Test11(t *testing.T) {
+	assert.Equal(t, "qwerty4yuiop", expand("qwerty\\4yuiop"))
+}
+
+func Test12(t *testing.T) {
+	assert.Equal(t, "qwertyyyy", expand("\\qwerty4"))
+}
+
+func Test13(t *testing.T) {
+	assert.Equal(t, "\\qwerty", expand("\\\\qwerty"))
+}
+
+func Test14(t *testing.T) {
+	assert.Equal(t, "\\\\\\qwerty", expand("\\\\3qwerty"))
+}
+
+func Test15(t *testing.T) {
+	assert.Equal(t, "qwerty", expand("qwerty\\"))
+}
+
+func Test16(t *testing.T) {
+	assert.Equal(t, "qwertyyy", expand("qwerty3\\"))
 }

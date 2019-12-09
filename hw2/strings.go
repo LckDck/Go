@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"strings"
 	"unicode"
 )
 
@@ -16,53 +15,42 @@ func main() {
 }
 
 func expand(s string) string {
-	runes := []rune(s)
-	if len(runes) == 0 {
-		return ""
-	}
-
-	var amount int = 0
-	var pow int = 0
-	var lastSymbol rune = runes[0]
 	const escape = 92
-	var nextEscaped = false
+	runes := []rune(s)
+	result := []rune{}
+	escapeActive := false
+	amount := 0
+	pow := 0
 
-	var b strings.Builder
-
-	for i, r := range runes {
-		if i == 0 {
-			continue
-		}
-		if r == escape {
-			writeToBuilder(&b, lastSymbol, amount, nextEscaped)
-			nextEscaped = true
-			continue
-		}
-		if nextEscaped {
-			lastSymbol = r
-			nextEscaped = false
-			continue
-		}
-		if unicode.IsDigit(r) {
-			amount = amount*10 + (int(r) - '0')
-			pow++
-			continue
-		} else {
-			writeToBuilder(&b, lastSymbol, amount, nextEscaped)
-			lastSymbol = r
+	for _, r := range runes {
+		if escapeActive || (r != escape && !unicode.IsDigit(r)) {
+			result = applyAmount(result, amount)
+			result = append(result, r)
 			amount = 0
 			pow = 0
+			escapeActive = false
+		} else if r == escape {
+			escapeActive = true
+		} else if unicode.IsDigit(r) {
+			amount = amount*10 + (int(r) - '0')
+			pow++
 		}
 	}
-	writeToBuilder(&b, lastSymbol, amount, nextEscaped)
-	return b.String()
+	if amount > 0 {
+		result = applyAmount(result, amount)
+	}
+	return string(result)
 }
 
-func writeToBuilder(b *strings.Builder, s rune, amount int, allowAll bool) {
-	// if !unicode.IsDigit(s) || allowAll {
-	b.WriteRune(s)
-	for j := 0; j < amount-1; j++ {
-		b.WriteRune(s)
+func applyAmount(result []rune, amount int) []rune {
+	length := len(result)
+	if length > 0 {
+		last := result[length-1]
+		if amount > 0 {
+			for j := 0; j < amount-1; j++ {
+				result = append(result, last)
+			}
+		}
 	}
-	//}
+	return result
 }
