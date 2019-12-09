@@ -20,20 +20,17 @@ func expand(s string) string {
 	result := []rune{}
 	escapeActive := false
 	amount := 0
-	pow := 0
 
 	for _, r := range runes {
 		if escapeActive || (r != escape && !unicode.IsDigit(r)) {
 			result = applyAmount(result, amount)
 			result = append(result, r)
 			amount = 0
-			pow = 0
 			escapeActive = false
 		} else if r == escape {
 			escapeActive = true
 		} else if unicode.IsDigit(r) {
 			amount = amount*10 + (int(r) - '0')
-			pow++
 		}
 	}
 	if amount > 0 {
