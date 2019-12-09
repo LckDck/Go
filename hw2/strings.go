@@ -44,12 +44,10 @@ func expand(s string) string {
 
 func applyAmount(result []rune, amount int) []rune {
 	length := len(result)
-	if length > 0 {
+	if length > 0 && amount > 0 {
 		last := result[length-1]
-		if amount > 0 {
-			for j := 0; j < amount-1; j++ {
-				result = append(result, last)
-			}
+		for j := 0; j < amount-1; j++ {
+			result = append(result, last)
 		}
 	}
 	return result
