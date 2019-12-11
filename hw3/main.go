@@ -33,6 +33,10 @@ func frequency(input string) string {
 		words[word]++
 	}
 
+	return getMax(words)
+}
+
+func getMax(words map[string]int) string {
 	max := 0
 	maxKey := ""
 	for key, val := range words {
@@ -41,7 +45,6 @@ func frequency(input string) string {
 			maxKey = key
 		}
 	}
-
 	return maxKey
 }
 
