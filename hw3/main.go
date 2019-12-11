@@ -1,11 +1,16 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 )
 
 func main() {
-	fmt.Println(frequency("asss ,sldfa sldfa sldfa alsdfa;, asdfa asdfa; alfs"))
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print("Введите текст: ")
+	text, _ := reader.ReadString('\n')
+	fmt.Println("Самое часто встречающееся слово : " + frequency(text))
 }
 
 func frequency(input string) string {
