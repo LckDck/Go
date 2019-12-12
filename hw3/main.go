@@ -4,16 +4,25 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 )
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Введите текст: ")
 	text, _ := reader.ReadString('\n')
-	fmt.Println("Самое часто встречающееся слово : " + frequency(text))
+	res := frequency(text)
+	for _, kv := range res {
+		fmt.Println(kv.Key+" - ", kv.Value)
+	}
 }
 
-func frequency(input string) string {
+type kv struct {
+	Key   string
+	Value int
+}
+
+func frequency(input string) []kv {
 	delimiters := []rune{' ', '.', ',', '!', '?', ':', ';', '(', ')', '"', '\'', '-'}
 	words := map[string]int{}
 	lastIndex := 0
@@ -37,20 +46,18 @@ func frequency(input string) string {
 		word := input[lastIndex:len(input)]
 		words[word]++
 	}
-
-	return getMax(words)
+	return getMostPopular(words)
 }
 
-func getMax(words map[string]int) string {
-	max := 0
-	maxKey := ""
-	for key, val := range words {
-		if val > max {
-			max = val
-			maxKey = key
-		}
+func getMostPopular(words map[string]int) []kv {
+	var ss []kv
+	for k, v := range words {
+		ss = append(ss, kv{k, v})
 	}
-	return maxKey
+	sort.Slice(ss, func(i, j int) bool {
+		return ss[i].Value > ss[j].Value
+	})
+	return ss[0:10]
 }
 
 func isDelimiter(r rune, delimiters []rune) bool {
