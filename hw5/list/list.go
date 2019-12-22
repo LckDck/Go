@@ -120,7 +120,7 @@ func (l *List) String() string {
 }
 
 func (l List) find(element interface{}) (*Item, bool) {
-	for curr := l.lastElement; curr != nil; curr = curr.Prev {
+	for curr := l.firstElement; curr != nil; curr = curr.Next {
 		if element == curr.Value {
 			return curr, true
 		}
