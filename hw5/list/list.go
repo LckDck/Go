@@ -66,10 +66,10 @@ func (l *List) PushBack(element interface{}) {
 }
 
 //Remove removes an element from the list
-func (l *List) Remove(element interface{}) {
+func (l *List) Remove(element interface{}) bool {
 	item, found := l.find(element)
 	if !found {
-		return
+		return false
 	}
 	if l.Len() == 1 {
 		l.firstElement = nil
@@ -88,6 +88,7 @@ func (l *List) Remove(element interface{}) {
 		l.lastElement.Next = nil
 	}
 	l.len = l.len - 1
+	return true
 }
 
 //Prev returns the previous element from @element

@@ -17,6 +17,17 @@ func TestPushBack(t *testing.T) {
 	assert.Equal(t, 3, l.Last())
 }
 
+func TestNotExist(t *testing.T) {
+	l := List{}
+	l.PushBack(1)
+	l.PushBack(2)
+	l.PushBack(3)
+	removed := l.Remove(4)
+	assert.Equal(t, 3, l.Len())
+	assert.Equal(t, "123", l.String())
+	assert.Equal(t, false, removed)
+}
+
 func TestPushFront(t *testing.T) {
 	l := List{}
 	l.PushFront(1)
