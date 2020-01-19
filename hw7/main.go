@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	copy.Copy("from.txt", "to.txt", 0, 0)
+	copy.Copy("from.txt", "to.txt", 3, 5)
 }
