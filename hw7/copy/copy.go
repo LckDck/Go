@@ -16,8 +16,8 @@ func Copy(from string, to string, limit int, offset int) error {
 	fileTo, errTo := os.OpenFile(to, os.O_RDWR, 0644)
 	defer fileTo.Close()
 
-	fmt.Println(errTo.Error())
-	fmt.Println(errFrom.Error())
+	fmt.Println(errTo)
+	fmt.Println(errFrom)
 
 	// buffer := make([]byte, limit)
 	_, err := io.Copy(fileTo, fileFrom)
