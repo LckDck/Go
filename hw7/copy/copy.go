@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-// Copy function copys
+// Copy function copies
 func Copy(from string, to string, limit int64, offset int64) error {
 	var fileFrom *os.File
 	fileFrom, _ = os.OpenFile(from, os.O_RDONLY, 0644)
