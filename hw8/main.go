@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	envdir.ReadDir("lsdkfa")
+	envdir.ReadDir("")
 }
