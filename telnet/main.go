@@ -18,12 +18,22 @@ func main() {
 
 	conn, err := net.Dial("tcp", host+":"+port)
 	if err != nil {
-		os.Stderr.WriteString(err.Error())
+		os.Stderr.WriteString(err.Error() + "\n")
+		return
 	}
-	fmt.Fprintf(conn, "GET / HTTP/1.0\r\n\r\n")
-	_, err = bufio.NewReader(conn).ReadString('\n')
-	if err != nil {
-		os.Stderr.WriteString(err.Error())
+	for {
+		reader := bufio.NewReader(os.Stdin)
+		text, err := reader.ReadString('\n')
+		if err != nil {
+			os.Stderr.WriteString(err.Error() + "\n")
+			return
+		}
+		fmt.Fprintf(conn, text+"\n")
+		message, err := bufio.NewReader(conn).ReadString('\n')
+		if err != nil {
+			os.Stderr.WriteString(err.Error() + "\n")
+			return
+		}
+		fmt.Fprintln(os.Stdout, "Answer from server: "+message)
 	}
-
 }
