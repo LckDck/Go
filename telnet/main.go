@@ -22,6 +22,7 @@ func main() {
 		return
 	}
 	for {
+		//Some changes here
 		reader := bufio.NewReader(os.Stdin)
 		text, err := reader.ReadString('\n')
 		if err != nil {
